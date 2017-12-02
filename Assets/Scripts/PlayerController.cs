@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     public Rigidbody2D Player;
+    public TrayController Tray;
+
     public float GroundAcceleration = 60f;
     public float AirialAcceleration = 0f;
     public float MaxSpeed = 5f;
@@ -12,6 +14,7 @@ public class PlayerController : MonoBehaviour {
     public bool IsGrounded;
 
     private bool HandleJumpPressed = false;
+   
 
     private void Update()
     {
@@ -48,20 +51,41 @@ public class PlayerController : MonoBehaviour {
 	}
 
 
+    private bool IsGroundCollision(Collision2D collision)
+    {
+        bool contacts = true;
+        if (collision.contacts.Length > 0)
+        {
+            contacts = (collision.contacts[0].normal == Vector2.up);
+        }
+
+        return collision.collider.gameObject.layer == 9 &&  contacts;
+    }
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        this.IsGrounded = true;
+        if (this.IsGroundCollision(collision))
+        {
+            this.IsGrounded = true;
+        }
     }
 
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        this.IsGrounded = false;
+        if (this.IsGroundCollision(collision))
+        {
+            this.IsGrounded = false;
+        }
     }
 
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        this.IsGrounded = true;
+        if (this.IsGroundCollision(collision))
+        {
+            this.IsGrounded = true;
+        }
     }
 }
