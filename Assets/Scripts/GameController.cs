@@ -70,9 +70,14 @@ public class GameController : MonoBehaviour
     }
 
 
-    public static void DestroyDish(Dish dish)
+    public static void NotifyDishJointBreak(Dish dish)
     {
-        dish.DestroyJoint();
+        Instance.Tray.RemoveDish(dish);
+    }
+
+
+    public static void DespawnDish(Dish dish)
+    {
         Instance.DishPooler.Deactivate(dish);
     }
 }

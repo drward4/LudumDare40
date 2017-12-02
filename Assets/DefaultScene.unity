@@ -471,7 +471,7 @@ GameObject:
   - component: {fileID: 248939764}
   - component: {fileID: 248939763}
   m_Layer: 9
-  m_Name: Ground1 (4)
+  m_Name: Window1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -509,18 +509,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.42, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
-    newSize: {x: 10, y: 1}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 10, y: 1}
+  m_Size: {x: 0.1, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &248939765
 SpriteRenderer:
@@ -561,7 +561,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 10, y: 1}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -572,8 +572,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 248939762}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.41127, y: 0.24625412, z: -0.8060665}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.13, y: 0.62, z: -0.8060665}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 495858442}
@@ -692,13 +692,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 252764930}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.61127, y: -0.9037459, z: -0.8060665}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7063571, w: 0.7078557}
+  m_LocalPosition: {x: -12.33, y: 3.56, z: -0.8060665}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 495858442}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -89.879005}
 --- !u!1 &333289854
 GameObject:
   m_ObjectHideFlags: 0
@@ -999,7 +999,7 @@ Transform:
   - {fileID: 248939766}
   - {fileID: 1335119558}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &612167179
 GameObject:
@@ -1088,7 +1088,7 @@ RectTransform:
   m_Children:
   - {fileID: 1605467252}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1277,6 +1277,7 @@ GameObject:
   - component: {fileID: 840162085}
   - component: {fileID: 840162083}
   - component: {fileID: 840162088}
+  - component: {fileID: 840162087}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1317,9 +1318,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerBody: {fileID: 840162083}
   Tray: {fileID: 1582752983}
-  GroundAcceleration: 20
+  GroundAcceleration: 15
   AirialAcceleration: 5
-  MaxSpeed: 10
+  MaxSpeed: 8
   JumpPower: 350
   IsGrounded: 0
 --- !u!212 &840162085
@@ -1373,19 +1374,35 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 840162082}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.004760027, y: -1.14, z: 0}
+  m_LocalPosition: {x: 0.004760027, y: -1.389, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1582752981}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &840162087
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 840162082}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 98e07ee6e81edb845bba79181bc2c1ef, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.67, y: 1.29}
+  m_Direction: 0
 --- !u!61 &840162088
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 840162082}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 98e07ee6e81edb845bba79181bc2c1ef, type: 2}
   m_IsTrigger: 0
@@ -2082,7 +2099,7 @@ MonoBehaviour:
   DishesContainer: {fileID: 816776079}
   DishPrefab: {fileID: 114065430916906364, guid: 581b6cbda1eb30d449c9e8390cf7932d,
     type: 2}
-  StartingDishes: 3
+  StartingDishes: 20
 --- !u!4 &1411770612
 Transform:
   m_ObjectHideFlags: 0
@@ -2233,11 +2250,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1582752978}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.004760027, y: -0.43, z: 0}
+  m_LocalPosition: {x: 0, y: 0.71, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 840162086}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1582752982
 SpriteRenderer:
@@ -2295,9 +2312,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbody: {fileID: 1582752979}
-  PlateSpacing: 0.1
-  StartingBreakForce: 100
-  LowestBreakForce: 1
+  PlateSpacing: 0.08
+  StartingBreakForce: 80
+  LowestBreakForce: 2
+  DishUpperLimitCount: 10
+  LowestAngleLimit: 2
+  AngleLimitIncrement: 2
   BreakForceCurve:
     serializedVersion: 2
     m_Curve:
@@ -2308,14 +2328,14 @@ MonoBehaviour:
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.18478425
-      value: 0.93767387
+      time: 0.4000705
+      value: 0.81048423
       inSlope: -1.4308095
       outSlope: -1.4308095
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.44630933
-      value: 0.16075611
+      time: 0.756551
+      value: 0.12273121
       inSlope: -1.0779046
       outSlope: -1.0779046
       tangentMode: 0
@@ -2508,7 +2528,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1605467251
 GameObject:

@@ -8,22 +8,46 @@ public class Dish : MonoBehaviour
     public Rigidbody2D Rigidbody;
     public HingeJoint2D Joint;
 
+    public bool HasJoint()
+    {
+        return this.GetComponent<HingeJoint2D>() != null;
+    }
+
     public void DestroyJoint()
     {
-        if (this.GetComponent<HingeJoint2D>() != null)
+        if (this.HasJoint())
         {
             Destroy(this.Joint);
         }
 
-        // TODO destroy joints recursively
-        this.NextDish = null;
+        if (this.NextDish != null)
+        {
+            this.NextDish.DestroyJoint();
+            this.NextDish = null;
+        }
 
         this.Rigidbody.gravityScale = GameController.LooseDishGravityScale;
+        GameController.NotifyDishJointBreak(this);
     }
 
     private void OnJointBreak2D(Joint2D joint)
     {
-        this.Rigidbody.gravityScale = GameController.LooseDishGravityScale;
-        Debug.Log("A joint has just been broken!, force: " + joint.breakForce);
+        this.DestroyJoint();
+    }
+
+
+    public void BreakDish()
+    {
+        GameController.DespawnDish(this);
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.gameObject.layer == 9 && !this.HasJoint())
+        {
+            Debug.Log("break " + this.name);
+            this.BreakDish();
+        }
     }
 }

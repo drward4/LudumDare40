@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour {
     public float JumpPower = 300f;
     public bool IsGrounded;
 
+    private int ContactCount;
     private bool HandleJumpPressed = false;
     private Vector3 OriginalPosition;
     private Vector3 TrayOriginalPosition;
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour {
         this.Tray.transform.position = this.TrayOriginalPosition;
         this.PlayerBody.velocity = Vector2.zero;
         this.PlayerBody.angularVelocity = 0f;
+        this.ContactCount = 0;
     }
 
     private void Update()
@@ -59,7 +61,7 @@ public class PlayerController : MonoBehaviour {
             {
                 this.PlayerBody.AddForce(new Vector2(horizontalDirection * this.GroundAcceleration, 0f));
             }
-            else
+            else if (this.ContactCount == 0) // Make sure we can't stick ourself to walls
             {
                 this.PlayerBody.AddForce(new Vector2(horizontalDirection * this.AirialAcceleration, 0f));
             }
@@ -75,12 +77,17 @@ public class PlayerController : MonoBehaviour {
             contacts = (collision.contacts[0].normal == Vector2.up);
         }
 
-        return collision.collider.gameObject.layer == 9 &&  contacts;
+        return collision.collider.gameObject.layer == 9 && contacts;
     }
 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.collider.gameObject.layer == 9)
+        {
+            this.ContactCount = collision.contacts.Length;
+        }
+
         if (this.IsGroundCollision(collision))
         {
             this.IsGrounded = true;
@@ -90,6 +97,11 @@ public class PlayerController : MonoBehaviour {
 
     private void OnCollisionExit2D(Collision2D collision)
     {
+        if (collision.collider.gameObject.layer == 9)
+        {
+            this.ContactCount = collision.contacts.Length;
+        }
+
         if (this.IsGroundCollision(collision))
         {
             this.IsGrounded = false;

@@ -9,6 +9,9 @@ public class TrayController : MonoBehaviour
     public float PlateSpacing = 0.3f;
     public float StartingBreakForce = 6f;
     public float LowestBreakForce = 1f;
+    public float DishUpperLimitCount = 10f;
+
+    public float LowestAngleLimit = 5f;
 
     public AnimationCurve BreakForceCurve;
 
@@ -44,7 +47,7 @@ public class TrayController : MonoBehaviour
         }
 
         dish.Joint = dish.gameObject.AddComponent<HingeJoint2D>();
-        dish.Joint.limits = new JointAngleLimits2D { min = -15f, max = 15f };
+        dish.Joint.limits = new JointAngleLimits2D { min = -this.LowestAngleLimit, max = this.LowestAngleLimit };
         dish.Rigidbody.gravityScale = 0f;        
 
         if (this.Dishes.Count > 0)
@@ -62,7 +65,16 @@ public class TrayController : MonoBehaviour
 
         this.Dishes.Add(dish);
 
-        float d = this.BreakForceCurve.Evaluate(Mathf.Clamp(this.Dishes.Count / 10f, 0f, 1f));
+        float d = this.BreakForceCurve.Evaluate(Mathf.Clamp(this.Dishes.Count / this.DishUpperLimitCount, 0f, 1f));
         dish.Joint.breakForce = Mathf.Clamp(d * this.StartingBreakForce, this.LowestBreakForce, this.StartingBreakForce);
+    }
+
+
+    public void RemoveDish(Dish dish)
+    {
+        if (this.Dishes.Contains(dish))
+        {
+            this.Dishes.Remove(dish);
+        }
     }
 }
