@@ -8,14 +8,14 @@ public class Dish : MonoBehaviour
     public Rigidbody2D Rigidbody;
     public HingeJoint2D Joint;
 
-    public bool HasJoint()
+    public bool IsOnTray()
     {
         return this.GetComponent<HingeJoint2D>() != null;
     }
 
     public void DestroyJoint()
     {
-        if (this.HasJoint())
+        if (this.IsOnTray())
         {
             Destroy(this.Joint);
         }
@@ -44,10 +44,16 @@ public class Dish : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.gameObject.layer == 9 && !this.HasJoint())
+        if (!this.IsOnTray())
         {
-            Debug.Log("break " + this.name);
-            this.BreakDish();
+            if (collision.collider.gameObject.layer == 9)
+            {
+                this.BreakDish();
+            }
+            else if (collision.collider.gameObject.layer == 12)
+            {
+                GameController.GivePlayerDish(this);
+            }
         }
     }
 }

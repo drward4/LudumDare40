@@ -17,6 +17,9 @@ public class TrayController : MonoBehaviour
 
     private List<Dish> Dishes;
 
+
+    public int DishCount { get { return this.Dishes.Count; } }
+
     private void Awake()
     {
         this.Dishes = new List<Dish>();
@@ -48,14 +51,19 @@ public class TrayController : MonoBehaviour
 
         dish.Joint = dish.gameObject.AddComponent<HingeJoint2D>();
         dish.Joint.limits = new JointAngleLimits2D { min = -this.LowestAngleLimit, max = this.LowestAngleLimit };
-        dish.Rigidbody.gravityScale = 0f;        
+        dish.Joint.enableCollision = true;
+        dish.Rigidbody.gravityScale = 0f;
+        dish.transform.rotation = Quaternion.identity;
+        dish.Rigidbody.velocity = this.Rigidbody.velocity;
+        dish.Rigidbody.angularVelocity = 0f;
+        dish.Joint.breakForce = 1000f; // Helps make sure it doesn't fall off right away?
 
         if (this.Dishes.Count > 0)
         {
             Dish lastDish = this.Dishes[this.Dishes.Count - 1];
             lastDish.NextDish = dish;
-            dish.transform.position = lastDish.transform.position + Vector3.up * this.PlateSpacing;
             dish.Joint.connectedBody = lastDish.Rigidbody;
+            dish.transform.position = lastDish.transform.position + lastDish.transform.up * this.PlateSpacing;
         }
         else
         {

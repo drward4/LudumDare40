@@ -36,10 +36,15 @@ public class PlayerController : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && this.IsGrounded)
         {
             this.HandleJumpPressed = true;
         }
+
+        // Get a range of 10 to 30 accel based on 5 - 20 dishes
+        float count = (float)this.Tray.DishCount;
+        float d = Mathf.Clamp((count - 5f) / 15f, 0f, 1f);
+        this.GroundAcceleration = 30f - d * 20f;
     }
 
 
