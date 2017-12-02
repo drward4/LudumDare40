@@ -13,8 +13,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - IgnoreEnvironment
+  - Environment
   - 
   - 
   - 
@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Environment
+    uniqueID: 3563034037
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
