@@ -44,13 +44,20 @@ public class Dish : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!this.IsOnTray())
+        if (this.IsOnTray())
         {
-            if (collision.collider.gameObject.layer == 9)
+            if (collision.collider.gameObject.layer == (int)GameLayers.Obstacle) 
+            {
+                this.DestroyJoint();
+            }
+        }
+        else
+        {
+            if (collision.collider.gameObject.layer == (int)GameLayers.Ground)
             {
                 this.BreakDish();
             }
-            else if (collision.collider.gameObject.layer == 12)
+            else if (collision.collider.gameObject.layer == (int)GameLayers.Player) 
             {
                 GameController.GivePlayerDish(this);
             }

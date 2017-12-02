@@ -43,6 +43,11 @@ public class TrayController : MonoBehaviour
     public void AddDish(Dish dish)
     {
         //float breakForce = Mathf.Clamp(this.StartingBreakForce - this.BreakForceDecrement * this.Dishes.Count, this.LowestBreakForce, this.StartingBreakForce);
+        if (this.Dishes.Contains(dish))
+        {
+            Debug.Log("Possible error, " + dish.name + " already in dishes list");
+            return;
+        }
 
         if (dish.GetComponent<HingeJoint2D>() != null)
         {

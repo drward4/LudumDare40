@@ -87,7 +87,7 @@ public class GameController : MonoBehaviour
 
     public static void GivePlayerDish(Dish dish)
     {
-        dish.gameObject.layer = 10;
+        dish.gameObject.layer = (int)GameLayers.Dishes;
         Instance.Player.Tray.AddDish(dish);
     }
 
@@ -117,7 +117,7 @@ public class GameController : MonoBehaviour
            
         Dish newDish = Instance.SpawnDish();
         newDish.Rigidbody.gravityScale = 0f;
-        newDish.gameObject.layer = 11;
+        newDish.gameObject.layer = (int)GameLayers.Scenery;
 
         int index = Random.Range(0, this.EmptySpawnLocations.Count);
         DishSpawnLocation location = this.EmptySpawnLocations[index];        

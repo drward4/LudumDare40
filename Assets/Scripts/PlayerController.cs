@@ -34,11 +34,15 @@ public class PlayerController : MonoBehaviour {
         this.ContactCount = 0;
     }
 
+
     private void Update()
     {
-        if (Input.GetButtonDown("Jump") && this.IsGrounded)
+        if (this.IsGrounded)
         {
-            this.HandleJumpPressed = true;
+            if (Input.GetMouseButtonDown(1) || Input.GetButtonDown("Jump"))
+            {
+                this.HandleJumpPressed = true;
+            }
         }
 
         // Get a range of 10 to 30 accel based on 5 - 20 dishes
@@ -52,6 +56,12 @@ public class PlayerController : MonoBehaviour {
     {
         float velocityMagnitude = this.PlayerBody.velocity.magnitude;
         float horizontalDirection = Input.GetAxis("Horizontal");
+
+        if (Input.GetMouseButton(0))
+        {
+            float mouseDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - this.transform.position.x;
+            horizontalDirection = Mathf.Clamp(mouseDirection / 2f, -1f, 1f);
+        }
 
         if (this.HandleJumpPressed)
         {
@@ -82,13 +92,13 @@ public class PlayerController : MonoBehaviour {
             contacts = (collision.contacts[0].normal == Vector2.up);
         }
 
-        return collision.collider.gameObject.layer == 9 && contacts;
+        return collision.collider.gameObject.layer == (int)GameLayers.Ground && contacts;
     }
 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.gameObject.layer == 9)
+        if (collision.collider.gameObject.layer == (int)GameLayers.Ground)
         {
             this.ContactCount = collision.contacts.Length;
         }
@@ -102,7 +112,7 @@ public class PlayerController : MonoBehaviour {
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.collider.gameObject.layer == 9)
+        if (collision.collider.gameObject.layer == (int)GameLayers.Ground)
         {
             this.ContactCount = collision.contacts.Length;
         }
