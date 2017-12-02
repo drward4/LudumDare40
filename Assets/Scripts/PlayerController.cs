@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    public Rigidbody2D Player;
+    public Rigidbody2D PlayerBody;
     public TrayController Tray;
 
     public float GroundAcceleration = 60f;
@@ -14,7 +14,23 @@ public class PlayerController : MonoBehaviour {
     public bool IsGrounded;
 
     private bool HandleJumpPressed = false;
-   
+    private Vector3 OriginalPosition;
+    private Vector3 TrayOriginalPosition;
+
+    private void Awake()
+    {
+        this.OriginalPosition = this.transform.position;
+        this.TrayOriginalPosition = this.Tray.transform.position;
+    }
+
+
+    public void ResetPlayer()
+    {
+        this.transform.position = this.OriginalPosition;
+        this.Tray.transform.position = this.TrayOriginalPosition;
+        this.PlayerBody.velocity = Vector2.zero;
+        this.PlayerBody.angularVelocity = 0f;
+    }
 
     private void Update()
     {
@@ -27,12 +43,12 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate ()
     {
-        float velocityMagnitude = this.Player.velocity.magnitude;
+        float velocityMagnitude = this.PlayerBody.velocity.magnitude;
         float horizontalDirection = Input.GetAxis("Horizontal");
 
         if (this.HandleJumpPressed)
         {
-            this.Player.AddForce(new Vector2(0f, this.JumpPower));
+            this.PlayerBody.AddForce(new Vector2(0f, this.JumpPower));
             this.HandleJumpPressed = false;
         }
 
@@ -41,11 +57,11 @@ public class PlayerController : MonoBehaviour {
         {
             if (this.IsGrounded)
             {
-                this.Player.AddForce(new Vector2(horizontalDirection * this.GroundAcceleration, 0f));
+                this.PlayerBody.AddForce(new Vector2(horizontalDirection * this.GroundAcceleration, 0f));
             }
             else
             {
-                this.Player.AddForce(new Vector2(horizontalDirection * this.AirialAcceleration, 0f));
+                this.PlayerBody.AddForce(new Vector2(horizontalDirection * this.AirialAcceleration, 0f));
             }
         }               
 	}

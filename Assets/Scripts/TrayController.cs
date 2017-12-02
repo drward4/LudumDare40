@@ -20,9 +20,32 @@ public class TrayController : MonoBehaviour
     }
 
 
+    public void ResetTray()
+    {
+        for (int i = 0; i < this.Dishes.Count; i++)
+        {
+            this.Dishes[i].DestroyJoint();
+        }
+
+        this.Dishes.Clear();
+
+        this.Rigidbody.velocity = Vector2.zero;
+        this.Rigidbody.angularVelocity = 0f;
+    }
+
+
     public void AddDish(Dish dish)
     {
         //float breakForce = Mathf.Clamp(this.StartingBreakForce - this.BreakForceDecrement * this.Dishes.Count, this.LowestBreakForce, this.StartingBreakForce);
+
+        if (dish.GetComponent<HingeJoint2D>() != null)
+        {
+            Destroy(dish.Joint);
+        }
+
+        dish.Joint = dish.gameObject.AddComponent<HingeJoint2D>();
+        dish.Joint.limits = new JointAngleLimits2D { min = -15f, max = 15f };
+        dish.Rigidbody.gravityScale = 0f;        
 
         if (this.Dishes.Count > 0)
         {
