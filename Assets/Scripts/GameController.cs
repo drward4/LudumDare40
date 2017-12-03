@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    public int Score;
+    public Text ScoreLabel;
     public static float LooseDishGravityScale = 0.7f;
-
     public PlayerController Player;
     public TrayController Tray;
     public GameObject DishesContainer;
@@ -65,6 +67,8 @@ public class GameController : MonoBehaviour
         {
             SpawnDishOnTray();
         }
+
+        this.Score = 0;
     }
 
 
@@ -138,6 +142,13 @@ public class GameController : MonoBehaviour
     public static void DespawnDish(Dish dish)
     {
         Instance.DishPooler.Deactivate(dish);
+    }
+
+
+    public static void AddScore(int score)
+    {
+        Instance.Score += score;
+        Instance.ScoreLabel.text = "SCORE: " + Instance.Score.ToString();
     }
 
 

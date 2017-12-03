@@ -90,4 +90,20 @@ public class TrayController : MonoBehaviour
             this.Dishes.Remove(dish);
         }
     }
+
+
+    public void DropAllDishes()
+    {
+        if (this.Dishes.Count > 0)
+        {
+            for (int i = 0; i < this.Dishes.Count; i++)
+            {
+                this.Dishes[i].gameObject.layer = (int)GameLayers.Scenery;
+            }
+
+            // The root dish should drop the rest recursively 
+            this.Dishes[0].DestroyJoint();
+        }
+    }
+
 }

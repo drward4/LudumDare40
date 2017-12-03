@@ -63,4 +63,14 @@ public class Dish : MonoBehaviour
             }
         }
     }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<Collider2D>().gameObject.layer == (int)GameLayers.Bin)
+        {
+            GameController.DespawnDish(this);
+            GameController.AddScore(10);
+        }
+    }
 }

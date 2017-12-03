@@ -14,13 +14,13 @@ TagManager:
   - 
   - 
   - IgnoreEnvironment
-  - Environment
+  - Obstacle
   - Dishes
   - Scenery
   - Player
-  - 
-  - 
-  - 
+  - Ground
+  - Bin
+  - Ramp
   - 
   - 
   - 

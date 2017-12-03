@@ -8,7 +8,7 @@ public class DishSpawnLocation : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<Collider2D>().gameObject.layer == 12 && this.Dish != null)
+        if (collision.GetComponent<Collider2D>().gameObject.layer == (int)GameLayers.Player && this.Dish != null)
         {
             GameController.PickUpDishFromLocation(this);
         }

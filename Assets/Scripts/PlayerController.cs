@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour {
 
@@ -57,7 +58,7 @@ public class PlayerController : MonoBehaviour {
         float velocityMagnitude = this.PlayerBody.velocity.magnitude;
         float horizontalDirection = Input.GetAxis("Horizontal");
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             float mouseDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - this.transform.position.x;
             horizontalDirection = Mathf.Clamp(mouseDirection / 2f, -1f, 1f);
@@ -86,13 +87,7 @@ public class PlayerController : MonoBehaviour {
 
     private bool IsGroundCollision(Collision2D collision)
     {
-        bool contacts = true;
-        if (collision.contacts.Length > 0)
-        {
-            contacts = (collision.contacts[0].normal == Vector2.up);
-        }
-
-        return collision.collider.gameObject.layer == (int)GameLayers.Ground && contacts;
+        return collision.collider.gameObject.layer == (int)GameLayers.Ground;
     }
 
 
@@ -129,6 +124,15 @@ public class PlayerController : MonoBehaviour {
         if (this.IsGroundCollision(collision))
         {
             this.IsGrounded = true;
+        }
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<Collider2D>().gameObject.layer == (int)GameLayers.Bin)
+        {
+            this.Tray.DropAllDishes();
         }
     }
 }
