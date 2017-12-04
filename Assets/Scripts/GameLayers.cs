@@ -5,5 +5,6 @@
     Dishes = 10,
     Scenery = 11,
     Ground = 13,
-    Bin = 14
+    Bin = 14,
+    BinArea = 15
 }

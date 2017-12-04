@@ -91,8 +91,8 @@ public class GameController : MonoBehaviour
 
     public static void GivePlayerDish(Dish dish)
     {
-        dish.gameObject.layer = (int)GameLayers.Dishes;
-        Instance.Player.Tray.AddDish(dish);
+        dish.BeginToss(Instance.Player.PlayerBody.velocity);
+        //Instance.Player.Tray.AddDish(dish);
     }
 
 
@@ -133,10 +133,10 @@ public class GameController : MonoBehaviour
     }
 
 
-    public static void NotifyDishJointBreak(Dish dish)
-    {
-        Instance.Tray.RemoveDish(dish);
-    }
+    //public static void NotifyDishJointBreak(Dish dish)
+    //{
+    //    Instance.Tray.RemoveDish(dish);
+    //}
 
 
     public static void DespawnDish(Dish dish)

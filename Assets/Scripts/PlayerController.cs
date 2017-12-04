@@ -17,19 +17,19 @@ public class PlayerController : MonoBehaviour {
     private int ContactCount;
     private bool HandleJumpPressed = false;
     private Vector3 OriginalPosition;
-    private Vector3 TrayOriginalPosition;
-
+    private Vector3 TrayRelativePosition;
+    
     private void Awake()
     {
         this.OriginalPosition = this.transform.position;
-        this.TrayOriginalPosition = this.Tray.transform.position;
+        this.TrayRelativePosition = this.Tray.transform.position - this.transform.position;
     }
 
 
     public void ResetPlayer()
     {
         this.transform.position = this.OriginalPosition;
-        this.Tray.transform.position = this.TrayOriginalPosition;
+        this.Tray.transform.position = this.transform.position + this.TrayRelativePosition;
         this.PlayerBody.velocity = Vector2.zero;
         this.PlayerBody.angularVelocity = 0f;
         this.ContactCount = 0;
@@ -47,9 +47,9 @@ public class PlayerController : MonoBehaviour {
         }
 
         // Get a range of 10 to 30 accel based on 5 - 20 dishes
-        float count = (float)this.Tray.DishCount;
-        float d = Mathf.Clamp((count - 5f) / 15f, 0f, 1f);
-        this.GroundAcceleration = 30f - d * 20f;
+        //float count = (float)this.Tray.DishCount;
+        //float d = Mathf.Clamp((count - 5f) / 15f, 0f, 1f);
+        //this.GroundAcceleration = 30f - d * 20f;
     }
 
 
@@ -81,7 +81,11 @@ public class PlayerController : MonoBehaviour {
             {
                 this.PlayerBody.AddForce(new Vector2(horizontalDirection * this.AirialAcceleration, 0f));
             }
-        }               
+        }
+
+
+        //this.Tray.transform.position = this.transform.position + this.TrayRelativePosition;
+        //this.Tray.Rigidbody.velocity = this.PlayerBody.velocity;
 	}
 
 
