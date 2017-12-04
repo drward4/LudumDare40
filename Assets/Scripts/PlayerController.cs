@@ -134,9 +134,14 @@ public class PlayerController : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<Collider2D>().gameObject.layer == (int)GameLayers.Bin)
+        if (collision.GetComponent<Collider2D>().gameObject.layer == (int)GameLayers.BinArea)
         {
-            this.Tray.DropAllDishes();
+            Bin bin = collision.GetComponent<Collider2D>().gameObject.GetComponent<Bin>();
+            if (bin.IsAvailable)
+            {
+                bin.WashCycle();
+                this.Tray.DropAllDishes();
+            }
         }
     }
 }

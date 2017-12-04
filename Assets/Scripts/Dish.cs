@@ -58,6 +58,7 @@ public class Dish : MonoBehaviour
 
     public void BreakDish()
     {
+        GameController.AddScore(-10);
         GameController.DespawnDish(this);
     }
 
@@ -79,12 +80,18 @@ public class Dish : MonoBehaviour
     {
         if (collision.GetComponent<Collider2D>().gameObject.layer == (int)GameLayers.Bin)
         {
-            GameController.DespawnDish(this);
-            GameController.AddScore(10);
+            if (collision.GetComponent<Collider2D>().gameObject.transform.parent.GetComponent<Bin>().CanScore)
+            {
+                GameController.DespawnDish(this);
+                GameController.AddScore(20);
+            }
         }
         else if (collision.GetComponent<Collider2D>().gameObject.layer == (int)GameLayers.BinArea)
         {
-            this.gameObject.layer = (int)GameLayers.Scenery;
+            if (collision.GetComponent<Collider2D>().gameObject.GetComponent<Bin>().CanScore)
+            {
+                this.gameObject.layer = (int)GameLayers.Scenery;
+            }
         }
     }
 }
