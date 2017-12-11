@@ -1851,6 +1851,7 @@ MonoBehaviour:
   CoolDownLabel: {fileID: 350389058}
   IsAvailable: 1
   CoolDownTime: 20
+  ScoringGracePeriod: 2
 --- !u!1 &703579925
 GameObject:
   m_ObjectHideFlags: 0
@@ -2213,7 +2214,7 @@ GameObject:
   - component: {fileID: 840162085}
   - component: {fileID: 840162083}
   - component: {fileID: 840162087}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}

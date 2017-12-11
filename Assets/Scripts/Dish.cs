@@ -6,35 +6,6 @@ public class Dish : MonoBehaviour
 {
     public Dish NextDish;
     public Rigidbody2D Rigidbody;
-    //public HingeJoint2D Joint;
-
-    //public bool IsOnTray()
-    //{
-    //    return this.GetComponent<HingeJoint2D>() != null;
-    //}
-
-    //public void DestroyJoint()
-    //{
-    //    if (this.IsOnTray())
-    //    {
-    //        Destroy(this.Joint);
-    //    }
-
-    //    if (this.NextDish != null)
-    //    {
-    //        this.NextDish.DestroyJoint();
-    //        this.NextDish = null;
-    //    }
-
-    //    this.Rigidbody.gravityScale = GameController.LooseDishGravityScale;
-    //    GameController.NotifyDishJointBreak(this);
-    //}
-
-    //private void OnJointBreak2D(Joint2D joint)
-    //{
-    //    this.DestroyJoint();
-    //}
-
 
     private bool WasTossed;
     public void BeginToss(Vector2 velocity)
@@ -42,7 +13,6 @@ public class Dish : MonoBehaviour
         this.Rigidbody.velocity = velocity * Random.Range(0.6f, 0.9f) + Vector2.up * Random.Range(5f, 8f);
         this.Rigidbody.gravityScale = 1f;
         this.WasTossed = true;
-    //    this.gameObject.layer = (int)GameLayers.Dishes;
     }
 
 
@@ -69,14 +39,10 @@ public class Dish : MonoBehaviour
         {
             this.BreakDish();
         }
-        else if (collision.collider.gameObject.layer == (int)GameLayers.Player)
-        {
-            //GameController.GivePlayerDish(this);
-        }
     }
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void CheckTrigger(Collider2D collision)    
     {
         if (collision.GetComponent<Collider2D>().gameObject.layer == (int)GameLayers.Bin)
         {
@@ -93,5 +59,17 @@ public class Dish : MonoBehaviour
                 this.gameObject.layer = (int)GameLayers.Scenery;
             }
         }
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        this.CheckTrigger(collision);
+    }
+
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        this.CheckTrigger(collision);
     }
 }

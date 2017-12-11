@@ -8,10 +8,12 @@ public class Bin : MonoBehaviour
     public SpriteRenderer Visuals;
     public Text CoolDownLabel;
     public bool IsAvailable = true;
-    public bool CanScore { get { return this.WashCoolDownRemaining >= (this.CoolDownTime - this.ScoringGracePeriod); } }
+    public bool CanScore { get { return this.WashCoolDownRemaining <= 0f || this.WashCoolDownRemaining >= (this.CoolDownTime - this.ScoringGracePeriod); } }
     public float CoolDownTime = 20f;
     public float ScoringGracePeriod = 2f;
     private float WashCoolDownRemaining;
+
+
     public void WashCycle()
     {
         this.Visuals.color = new Color(1f, 1f, 1f, 0.2f);

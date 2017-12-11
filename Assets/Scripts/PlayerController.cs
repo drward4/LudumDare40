@@ -45,11 +45,6 @@ public class PlayerController : MonoBehaviour {
                 this.HandleJumpPressed = true;
             }
         }
-
-        // Get a range of 10 to 30 accel based on 5 - 20 dishes
-        //float count = (float)this.Tray.DishCount;
-        //float d = Mathf.Clamp((count - 5f) / 15f, 0f, 1f);
-        //this.GroundAcceleration = 30f - d * 20f;
     }
 
 
@@ -70,7 +65,7 @@ public class PlayerController : MonoBehaviour {
             this.HandleJumpPressed = false;
         }
 
-        // TODO separate 2d and 3d max velocity
+
         if (Mathf.Abs(horizontalDirection) > 0 && velocityMagnitude < this.MaxSpeed)
         {
             if (this.IsGrounded)
@@ -82,10 +77,6 @@ public class PlayerController : MonoBehaviour {
                 this.PlayerBody.AddForce(new Vector2(horizontalDirection * this.AirialAcceleration, 0f));
             }
         }
-
-
-        //this.Tray.transform.position = this.transform.position + this.TrayRelativePosition;
-        //this.Tray.Rigidbody.velocity = this.PlayerBody.velocity;
 	}
 
 
